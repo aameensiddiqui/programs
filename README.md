@@ -1,2 +1,2 @@
-# This repo contains some pracice programs for
+# This repo contains some practxice programs for
 `c` `java` `javascript` `mysql` `react`
