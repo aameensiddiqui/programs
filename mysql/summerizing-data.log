@@ -1,0 +1,378 @@
+mysql> create database test;
+ERROR 1007 (HY000): Can't create database 'test'; database exists
+mysql> CREATE TABLE Stocks (     StockSymbol VARCHAR(10) PRIMARY KEY,     StockName VARCHAR(100),     Exchange VARCHAR(10),     PriceEarningsRatio INT );
+ERROR 1050 (42S01): Table 'Stocks' already exists
+mysql> Select * from Stocks;
++-------------+------------------------------+----------+--------------------+
+| StockSymbol | StockName                    | Exchange | PriceEarningsRatio |
++-------------+------------------------------+----------+--------------------+
+| AAPL        | Apple Inc.                   | NASDAQ   |                 14 |
+| AMZN        | Amazon.com Inc.              | NASDAQ   |                489 |
+| DIS         | The Walt Disney Company      | NYSE     |                 21 |
+| GE          | General Electric Company     | NYSE     |                 18 |
+| GOOG        | Alphabet Inc.                | NASDAQ   |                 30 |
+| HSY         | The Hershey Company          | NYSE     |                 26 |
+| KO          | The Coca-Cola Company        | NYSE     |                 21 |
+| KRFT        | Kraft Foods Inc              | NYSE     |                 12 |
+| MCD         | McDonalds Corporation        | NYSE     |                 18 |
+| MMM         | 3M Company                   | NYSE     |                 20 |
+| MSFT        | Microsoft Corporation        | NASDAQ   |                 15 |
+| ORCL        | Oracle Corporation           | NASDAQ   |                 17 |
+| SBUX        | Starbucks Corporation        | NASDAQ   |                357 |
+| WBA         | Walgreens Boots Alliance Inc | NYSE     |                 24 |
+| WMT         | Wal-Mart Stores Inc          | NYSE     |                 15 |
++-------------+------------------------------+----------+--------------------+
+15 rows in set (0.01 sec)
+
+mysql> INSERT INTO Stocks (StockSymbol, StockName, Exchange, PriceEarningsRatio) VALUES ('AAPL', 'Apple Inc.', 'NASDAQ', 14), ('AMZN', 'Amazon.com Inc.', 'NASDAQ', 489), ('DIS', 'The Walt Disney Company', 'NYSE', 21), ('GE', 'General Electric Company', 'NYSE', 18), ('GOOG', 'Alphabet Inc.', 'NASDAQ', 30), ('HSY', 'The Hershey Company', 'NYSE', 26), ('KRFT', 'Kraft Foods Inc', 'NYSE', 12), ('KO', 'The Coca-Cola Company', 'NYSE', 21), ('MCD', 'McDonalds Corporation', 'NYSE', 18), ('MMM', '3M Company', 'NYSE', 20), ('MSFT', 'Microsoft Corporation', 'NASDAQ', 15), ('ORCL', 'Oracle Corporation', 'NASDAQ', 17), ('SBUX', 'Starbucks Corporation', 'NASDAQ', 357), ('WBA', 'Walgreens Boots Alliance Inc', 'NYSE', 24), ('WMT', 'Wal-Mart Stores Inc', 'NYSE', 15);
+ERROR 1062 (23000): Duplicate entry 'AAPL' for key 'Stocks.PRIMARY'
+mysql> SELECT ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row', StockSymbol, StockName, Exchange, PriceEarnings AS 'PE Ratio' FROM Stocks ORDER BY PriceEarningsRatio;
+ERROR 1054 (42S22): Unknown column 'PriceEarnings' in 'field list'
+mysql> SELECT ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row', StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio' FROM Stocks ORDER BY PriceEarningsRatio;
++-----+-------------+------------------------------+----------+----------+
+| Row | StockSymbol | StockName                    | Exchange | PE Ratio |
++-----+-------------+------------------------------+----------+----------+
+|   1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|   2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|   3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|   4 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|   5 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|   6 | GE          | General Electric Company     | NYSE     |       18 |
+|   7 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|   8 | MMM         | 3M Company                   | NYSE     |       20 |
+|   9 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|  10 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|  11 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|  12 | HSY         | The Hershey Company          | NYSE     |       26 |
+|  13 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|  14 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|  15 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++-----+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT
+    -> ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks;
++-----+-------------+------------------------------+----------+----------+
+| Row | StockSymbol | StockName                    | Exchange | PE Ratio |
++-----+-------------+------------------------------+----------+----------+
+|   1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|   2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|   3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|   4 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|   5 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|   6 | GE          | General Electric Company     | NYSE     |       18 |
+|   7 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|   8 | MMM         | 3M Company                   | NYSE     |       20 |
+|   9 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|  10 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|  11 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|  12 | HSY         | The Hershey Company          | NYSE     |       26 |
+|  13 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|  14 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|  15 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++-----+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT
+    -> ROW_NUMBER() AS 'Row',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks
+    -> ORDER BY PriceEarningsRatio;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS 'Row',
+StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+FRO' at line 2
+mysql> SELECT
+    -> ROW_NUMBER() OVER (PriceEarningsRatio) AS 'Row',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks;
+ERROR 3579 (HY000): Window name 'PriceEarningsRatio' is not defined.
+mysql> SELECT
+    -> ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks;
++-----+-------------+------------------------------+----------+----------+
+| Row | StockSymbol | StockName                    | Exchange | PE Ratio |
++-----+-------------+------------------------------+----------+----------+
+|   1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|   2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|   3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|   4 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|   5 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|   6 | GE          | General Electric Company     | NYSE     |       18 |
+|   7 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|   8 | MMM         | 3M Company                   | NYSE     |       20 |
+|   9 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|  10 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|  11 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|  12 | HSY         | The Hershey Company          | NYSE     |       26 |
+|  13 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|  14 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|  15 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++-----+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT
+    -> ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks
+    -> ORDER BY PriceEarningsRatio;
++-----+-------------+------------------------------+----------+----------+
+| Row | StockSymbol | StockName                    | Exchange | PE Ratio |
++-----+-------------+------------------------------+----------+----------+
+|   1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|   2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|   3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|   4 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|   5 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|   6 | GE          | General Electric Company     | NYSE     |       18 |
+|   7 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|   8 | MMM         | 3M Company                   | NYSE     |       20 |
+|   9 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|  10 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|  11 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|  12 | HSY         | The Hershey Company          | NYSE     |       26 |
+|  13 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|  14 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|  15 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++-----+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+
+mysql> -- RANK_FUNCTION() OVER(ORDER BY expression [ASC | DESC])
+mysql> -- Ranking functions:
+mysql> -- ROW_NUMBER()
+mysql> -- RANK()
+mysql> -- DENSE_RANK()
+mysql> -- NTILE()
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> -- the keyword OVER() is required. its purpose is to designate how the rank functions
+mysql> -- are to be applied.
+mysql> 
+mysql> 
+mysql> 
+mysql> -- expression indicates ----> a "column" or "expression" on which ranking is to be applied
+mysql> 
+mysql> 
+mysql> -- see the differnce below:
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT
+    -> ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row-Number',
+    -> RANK() OVER (ORDER BY PriceEarningsRatio) AS 'Rank',
+    -> DENSE_RANK() OVER (ORDER BY PriceEarningsRatio) AS 'Dense_Rank',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks
+    -> ORDER BY PriceEarningsRatio;
++------------+------+------------+-------------+------------------------------+----------+----------+
+| Row-Number | Rank | Dense_Rank | StockSymbol | StockName                    | Exchange | PE Ratio |
++------------+------+------------+-------------+------------------------------+----------+----------+
+|          1 |    1 |          1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|          2 |    2 |          2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|          3 |    3 |          3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|          4 |    3 |          3 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|          5 |    5 |          4 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|          6 |    6 |          5 | GE          | General Electric Company     | NYSE     |       18 |
+|          7 |    6 |          5 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|          8 |    8 |          6 | MMM         | 3M Company                   | NYSE     |       20 |
+|          9 |    9 |          7 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|         10 |    9 |          7 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|         11 |   11 |          8 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|         12 |   12 |          9 | HSY         | The Hershey Company          | NYSE     |       26 |
+|         13 |   13 |         10 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|         14 |   14 |         11 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|         15 |   15 |         12 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++------------+------+------------+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+
+mysql> 
+mysql> 
+mysql> -- here MSFT and WMT have same PE Ratio so they have same value for Rank and Dense_Rank
+mysql> -- the difference is in their next rows 
+mysql> -- Rank skips a number if two same values are present. 1 2 3 3 5 ...
+mysql> -- Dense_rank does not skip a number for same values.  1 2 3 3 4 ...
+mysql> --
+mysql> --
+mysql> -- -------------------------------- Partitions ------------------------------------------------
+mysql> --
+mysql> --
+mysql> --
+mysql> -- divides data into partitions prior to the application of ranking function
+mysql> -- Rank_function() OVER( PRATITION BY expression_1 ORDER BY expression_2 [ASC | DESC])
+mysql> --
+mysql> SELECT
+    -> ROW_NUMBER() OVER (ORDER BY PriceEarningsRatio) AS 'Row-Number',
+    -> StockSymbol, StockName, Exchange, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks
+    -> ORDER BY PriceEarningsRatio;
++------------+-------------+------------------------------+----------+----------+
+| Row-Number | StockSymbol | StockName                    | Exchange | PE Ratio |
++------------+-------------+------------------------------+----------+----------+
+|          1 | KRFT        | Kraft Foods Inc              | NYSE     |       12 |
+|          2 | AAPL        | Apple Inc.                   | NASDAQ   |       14 |
+|          3 | MSFT        | Microsoft Corporation        | NASDAQ   |       15 |
+|          4 | WMT         | Wal-Mart Stores Inc          | NYSE     |       15 |
+|          5 | ORCL        | Oracle Corporation           | NASDAQ   |       17 |
+|          6 | GE          | General Electric Company     | NYSE     |       18 |
+|          7 | MCD         | McDonalds Corporation        | NYSE     |       18 |
+|          8 | MMM         | 3M Company                   | NYSE     |       20 |
+|          9 | DIS         | The Walt Disney Company      | NYSE     |       21 |
+|         10 | KO          | The Coca-Cola Company        | NYSE     |       21 |
+|         11 | WBA         | Walgreens Boots Alliance Inc | NYSE     |       24 |
+|         12 | HSY         | The Hershey Company          | NYSE     |       26 |
+|         13 | GOOG        | Alphabet Inc.                | NASDAQ   |       30 |
+|         14 | SBUX        | Starbucks Corporation        | NASDAQ   |      357 |
+|         15 | AMZN        | Amazon.com Inc.              | NASDAQ   |      489 |
++------------+-------------+------------------------------+----------+----------+
+15 rows in set (0.01 sec)
+mysql> SELECT
+    -> Exchange,
+    -> ROW_NUMBER() OVER (PARTITION BY Exchange ORDER BY PriceEarningsRatio) AS 'Exchange-rank',
+    -> StockSymbol, StockName, PriceEarningsRatio AS 'PE Ratio'
+    -> FROM Stocks;
++----------+---------------+-------------+------------------------------+----------+
+| Exchange | Exchange-rank | StockSymbol | StockName                    | PE Ratio |
++----------+---------------+-------------+------------------------------+----------+
+| NASDAQ   |             1 | AAPL        | Apple Inc.                   |       14 |
+| NASDAQ   |             2 | MSFT        | Microsoft Corporation        |       15 |
+| NASDAQ   |             3 | ORCL        | Oracle Corporation           |       17 |
+| NASDAQ   |             4 | GOOG        | Alphabet Inc.                |       30 |
+| NASDAQ   |             5 | SBUX        | Starbucks Corporation        |      357 |
+| NASDAQ   |             6 | AMZN        | Amazon.com Inc.              |      489 |
+| NYSE     |             1 | KRFT        | Kraft Foods Inc              |       12 |
+| NYSE     |             2 | WMT         | Wal-Mart Stores Inc          |       15 |
+| NYSE     |             3 | GE          | General Electric Company     |       18 |
+| NYSE     |             4 | MCD         | McDonalds Corporation        |       18 |
+| NYSE     |             5 | MMM         | 3M Company                   |       20 |
+| NYSE     |             6 | DIS         | The Walt Disney Company      |       21 |
+| NYSE     |             7 | KO          | The Coca-Cola Company        |       21 |
+| NYSE     |             8 | WBA         | Walgreens Boots Alliance Inc |       24 |
+| NYSE     |             9 | HSY         | The Hershey Company          |       26 |
++----------+---------------+-------------+------------------------------+----------+
+15 rows in set (0.00 sec)
+
+mysql> -- partitions are not same as group by.
+mysql> -- the purpose of group by is to group data and then apply soe aggregation functions to each of the group
+mysql> -- for example
+mysql> -- group by exchange column andthen obtain avg pe for each group
+mysql> -- this would provide avg pe for both NASDAQ and NYSE exchanges.
+mysql> --
+mysql> -- in contrast,
+mysql> -- partition keeps the detailed data intact.
+mysql> -- partitioning is created merely to apply a ranking to individual rows within each partition.
+mysql> -- although data is divided into groups for purpose of ranking, the details are maintained
+mysql> -- and there is no aggregation involved.
+mysql> --
+mysql> --
+mysql> 
+    -> ---
+    -> 
+    -> ### **1. `GROUP BY` ka matlab kya hota hai?**
+    -> 
+    -> **"Group by" ka matlab hota hai:**
+    -> 
+    -> > Ek jaise rows ko ek group mein rakhna, aur phir unpe kuch **aggregation** lagana, jaise `AVG()`, `SUM()`, `COUNT()` etc.
+    -> 
+    -> Socho ki tumhare paas stocks hain alag-alag exchange mein (NASDAQ, NYSE). Agar tum chahte ho ki **har exchange ka average PE ratio** nikle, toh `GROUP BY` ka use karoge.
+    -> 
+    -> **Example:**
+    -> 
+    -> ```sql
+    `> SELECT Exchange, AVG(PriceEarningsRatio) AS Avg_PE
+    `> FROM Stocks
+    `> GROUP BY Exchange;
+    `> ```
+    -> 
+    -> Ismein output hoga:
+    -> 
+    -> * NASDAQ ka ek avg PE
+    -> * NYSE ka ek avg PE
+    -> 
+    -> **Toh GROUP BY se:**
+    -> 
+    -> * rows combine ho jaati hain
+    -> * details chali jaati hain (sirf aggregation bachta hai)
+    -> 
+    -> ---
+    -> 
+    -> ### **2. `PARTITION BY` ka matlab kya hota hai?**
+    -> 
+    -> **"Partition by" ka matlab hai:**
+    -> 
+    -> > Data ko group toh karo, **lekin details ko mat chhupo**. Har row waise ki waise dikhegi, bas uss group ke andar uski **ranking** ya koi function apply hoga.
+    -> 
+    -> **Use hota hai mostly with window functions** jaise:
+    -> 
+    -> * `ROW_NUMBER()`
+    -> * `RANK()`
+    -> * `DENSE_RANK()`
+    -> * `SUM() OVER()`
+    -> 
+    -> Example:
+    -> 
+    -> ```sql
+    `> SELECT
+    `>   Exchange,
+    `>   ROW_NUMBER() OVER (PARTITION BY Exchange ORDER BY PriceEarningsRatio) AS Rank,
+    `>   StockSymbol
+    `> FROM Stocks;
+    `> ```
+    -> 
+    -> Yeh kya karega?
+    -> 
+    -> * NASDAQ stocks mein PE ratio ke hisaab se 1,2,3,... rank dega
+    -> * NYSE stocks mein bhi waise hi 1,2,3,... rank dega
+    -> * **Lekin har stock ki row puri ki puri dikhegi**
+    -> 
+    -> ---
+    -> 
+    -> ### **GROUP BY vs PARTITION BY — Farq kya hai?**
+    -> 
+    -> | Feature          | GROUP BY                     | PARTITION BY                      |
+    -> | ---------------- | ---------------------------- | --------------------------------- |
+    -> | Data aggregation | Yes (e.g. `AVG`, `SUM`)      | No (details intact rehte hain)    |
+    -> | Data visibility  | Summarized (1 row per group) | Detailed (saari rows dikhti hain) |
+    -> | Typical use case | Summary nikalna              | Ranking ya running total banana   |
+    -> | Example function | `AVG()`, `SUM()`             | `ROW_NUMBER()`, `RANK()`          |
+    -> 
+    -> ---
+    -> 
+    -> ###  Tera SQL output kya batata hai?
+    -> 
+    -> #### `ROW_NUMBER() OVER (ORDER BY PE)`:
+    -> 
+    -> * Pura table PE ke hisaab se sort kar raha hai
+    -> * Har row ko ek global rank de raha hai
+    -> 
+    -> #### `ROW_NUMBER() OVER (PARTITION BY Exchange ORDER BY PE)`:
+    -> 
+    -> * Pehle data ko Exchange ke groups mein divide karta hai
+    -> * Har group ke andar PE ke order mein rank de raha hai
+    -> * Details puri dikh rahi hain (no aggregation)
+    -> 
+    -> ---
+    -> 
+    -> ### Summary in 1 line:
+    -> 
+    -> > `GROUP BY` data ko summarize karta hai, `PARTITION BY` data ko rank ya function apply karne ke liye **group toh karta hai, lekin summarize nahi karta.**
+    -> 
+    -> ---
+    -> 
+    -> */
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Bilkul Amin! Chalo in concepts ko **Hindi + English (Hinglish)** mein asaan bhaa' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> notee;
+mysql> -- yo yoo yooo
+mysql> notee;

@@ -1,0 +1,335 @@
+mysql> -- find the highest price per article
+mysql> SELECT * FROM shop WHERE price=(SELECT MAX(price) FROM shop);
++---------+--------+-------+
+| article | dealer | price |
++---------+--------+-------+
+|       4 | D      | 19.95 |
++---------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> use sql_store;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM customers WHERE first_name REGEXP '$a';
+Empty set (0.00 sec)
+
+mysql> -- return customers whose first name ends with EY or ON
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'ey$|on$';
+Empty set (0.01 sec)
+
+mysql> -- return customers whose first name ends with la or er
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'la$|er$';
++-------------+------------+-----------+------------+--------------+--------------------+----------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone        | address            | city     | state | points |
++-------------+------------+-----------+------------+--------------+--------------------+----------+-------+--------+
+|           8 | Thacher    | Naseby    | 1993-07-17 | 941-527-3977 | 538 Mosinee Center | Sarasota | FL    |    205 |
+|           9 | Romola     | Rumgay    | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail    | Visalia  | CA    |   1486 |
++-------------+------------+-----------+------------+--------------+--------------------+----------+-------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM customers;
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address                | city             | state | points |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace         | Waltham          | MA    |   2273 |
+|           2 | Ines       | Brushfield | 1986-04-13 | 804-427-9456 | 14187 Commercial Trail | Hampton          | VA    |    947 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction   | Colorado Springs | CO    |   2967 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace    | Orlando          | FL    |    457 |
+|           5 | Clemmie    | Betchley   | 1973-11-07 | NULL         | 5 Spohn Circle         | Arlington        | TX    |   3675 |
+|           6 | Elka       | Twiddell   | 1991-09-04 | 312-480-8498 | 7 Manley Drive         | Chicago          | IL    |   3073 |
+|           7 | Ilene      | Dowson     | 1964-08-30 | 615-641-4759 | 50 Lillian Crossing    | Nashville        | TN    |   1672 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center     | Sarasota         | FL    |    205 |
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail        | Visalia          | CA    |   1486 |
+|          10 | Levy       | Mynett     | 1969-10-13 | 404-246-3370 | 68 Lawn Avenue         | Atlanta          | GA    |    796 |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT (points * 10 + 20) AS discount_factor FROM customers;
++-----------------+
+| discount_factor |
++-----------------+
+|           22750 |
+|            9490 |
+|           29690 |
+|            4590 |
+|           36770 |
+|           30750 |
+|           16740 |
+|            2070 |
+|           14880 |
+|            7980 |
++-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *, (points * 10 + 20) AS discount_factor FROM customers;
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+-----------------+
+| customer_id | first_name | last_name  | birth_date | phone        | address                | city             | state | points | discount_factor |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+-----------------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace         | Waltham          | MA    |   2273 |           22750 |
+|           2 | Ines       | Brushfield | 1986-04-13 | 804-427-9456 | 14187 Commercial Trail | Hampton          | VA    |    947 |            9490 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction   | Colorado Springs | CO    |   2967 |           29690 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace    | Orlando          | FL    |    457 |            4590 |
+|           5 | Clemmie    | Betchley   | 1973-11-07 | NULL         | 5 Spohn Circle         | Arlington        | TX    |   3675 |           36770 |
+|           6 | Elka       | Twiddell   | 1991-09-04 | 312-480-8498 | 7 Manley Drive         | Chicago          | IL    |   3073 |           30750 |
+|           7 | Ilene      | Dowson     | 1964-08-30 | 615-641-4759 | 50 Lillian Crossing    | Nashville        | TN    |   1672 |           16740 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center     | Sarasota         | FL    |    205 |            2070 |
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail        | Visalia          | CA    |   1486 |           14880 |
+|          10 | Levy       | Mynett     | 1969-10-13 | 404-246-3370 | 68 Lawn Avenue         | Atlanta          | GA    |    796 |            7980 |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT state from customers;
++-------+
+| state |
++-------+
+| MA    |
+| VA    |
+| CO    |
+| FL    |
+| TX    |
+| IL    |
+| TN    |
+| CA    |
+| GA    |
++-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT *, DISTINCT state from customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT state from customers' at line 1
+mysql> SELECT DISTINCT state, * from customers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from customers' at line 1
+mysql> use managerie
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM shop;
++---------+--------+-------+
+| article | dealer | price |
++---------+--------+-------+
+|       1 | A      |  3.45 |
+|       1 | B      |  3.99 |
+|       2 | A      | 10.99 |
+|       3 | B      |  1.45 |
+|       3 | C      |  1.69 |
+|       3 | D      |  1.25 |
+|       4 | D      | 19.95 |
++---------+--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> -- find the highest price per article
+mysql> SELECT article, MAX(price) FROM shop GROUP BY article ORDER BY article;
++---------+------------+
+| article | MAX(price) |
++---------+------------+
+|       1 |       3.99 |
+|       2 |      10.99 |
+|       3 |       1.69 |
+|       4 |      19.95 |
++---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> use sql_store;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_sql_store |
++---------------------+
+| customers           |
+| order_item_notes    |
+| order_items         |
+| order_statuses      |
+| orders              |
+| products            |
+| shippers            |
++---------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address                | city             | state | points |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace         | Waltham          | MA    |   2273 |
+|           2 | Ines       | Brushfield | 1986-04-13 | 804-427-9456 | 14187 Commercial Trail | Hampton          | VA    |    947 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction   | Colorado Springs | CO    |   2967 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace    | Orlando          | FL    |    457 |
+|           5 | Clemmie    | Betchley   | 1973-11-07 | NULL         | 5 Spohn Circle         | Arlington        | TX    |   3675 |
+|           6 | Elka       | Twiddell   | 1991-09-04 | 312-480-8498 | 7 Manley Drive         | Chicago          | IL    |   3073 |
+|           7 | Ilene      | Dowson     | 1964-08-30 | 615-641-4759 | 50 Lillian Crossing    | Nashville        | TN    |   1672 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center     | Sarasota         | FL    |    205 |
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail        | Visalia          | CA    |   1486 |
+|          10 | Levy       | Mynett     | 1969-10-13 | 404-246-3370 | 68 Lawn Avenue         | Atlanta          | GA    |    796 |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> -- Return customers whose fist name starts with a
+mysql> SELECT * FROM customers WHERE first_name LIKE 'a%';
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone        | address             | city    | state | points |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+|           4 | Ambur      | Roseburgh | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace | Orlando | FL    |    457 |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- '%' any number of characters
+mysql> -- '_' exactly one character
+mysql> -- ^ begining of a string
+mysql> 
+mysql> SELECT * FROM customers WHERE first_name LIKE '^a';
+Empty set (0.01 sec)
+
+mysql> SELECT * FROM customers WHERE first_name LIKE '^a';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name LIKE '^am';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name LIKE '^Am';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^a';
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone        | address             | city    | state | points |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+|           4 | Ambur      | Roseburgh | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace | Orlando | FL    |    457 |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^am';
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone        | address             | city    | state | points |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+|           4 | Ambur      | Roseburgh | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace | Orlando | FL    |    457 |
++-------------+------------+-----------+------------+--------------+---------------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^my';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'se';
+Empty set (0.01 sec)
+
+mysql> -- return customers whose first name starts with my or contains se
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^my|se';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers;
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address                | city             | state | points |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace         | Waltham          | MA    |   2273 |
+|           2 | Ines       | Brushfield | 1986-04-13 | 804-427-9456 | 14187 Commercial Trail | Hampton          | VA    |    947 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction   | Colorado Springs | CO    |   2967 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace    | Orlando          | FL    |    457 |
+|           5 | Clemmie    | Betchley   | 1973-11-07 | NULL         | 5 Spohn Circle         | Arlington        | TX    |   3675 |
+|           6 | Elka       | Twiddell   | 1991-09-04 | 312-480-8498 | 7 Manley Drive         | Chicago          | IL    |   3073 |
+|           7 | Ilene      | Dowson     | 1964-08-30 | 615-641-4759 | 50 Lillian Crossing    | Nashville        | TN    |   1672 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center     | Sarasota         | FL    |    205 |
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail        | Visalia          | CA    |   1486 |
+|          10 | Levy       | Mynett     | 1969-10-13 | 404-246-3370 | 68 Lawn Avenue         | Atlanta          | GA    |    796 |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^ba|r';
++-------------+------------+------------+------------+--------------+----------------------+------------------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address              | city             | state | points |
++-------------+------------+------------+------------+--------------+----------------------+------------------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace       | Waltham          | MA    |   2273 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction | Colorado Springs | CO    |   2967 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace  | Orlando          | FL    |    457 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center   | Sarasota         | FL    |    205 |
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail      | Visalia          | CA    |   1486 |
++-------------+------------+------------+------------+--------------+----------------------+------------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^ba&r';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^ba' AND first_name REGEX 'r';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REGEX 'r'' at line 1
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^ba' AND first_name REGEXP 'r';
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address        | city    | state | points |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace | Waltham | MA    |   2273 |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE first_name REGEXP '^ba' AND first_name LIKE '%r%';
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address        | city    | state | points |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace | Waltham | MA    |   2273 |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- return customers whose first name starts with b followed by ar
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'b[ar]';
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address        | city    | state | points |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace | Waltham | MA    |   2273 |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- above is wrong
+mysql> -- return customers whose first name "CONTAINS" b followed by ar
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'b[ar]';
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address        | city    | state | points |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace | Waltham | MA    |   2273 |
++-------------+------------+------------+------------+--------------+----------------+---------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- return customers whose first name "CONTAINS" dd followed by i
+mysql> SELECT * FROM customers WHERE first_name REGEXP 'dd[i]';
++-------------+------------+-----------+------------+--------------+----------------------+------------------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone        | address              | city             | state | points |
++-------------+------------+-----------+------------+--------------+----------------------+------------------+-------+--------+
+|           3 | Freddi     | Boagey    | 1985-02-07 | 719-724-7869 | 251 Springs Junction | Colorado Springs | CO    |   2967 |
++-------------+------------+-----------+------------+--------------+----------------------+------------------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> --return customers who don't have a phone number
+    '> ;
+    '> ;
+    '> ^C
+mysql> -- return customers who don't have a phone number
+mysql> SELECT * FROM customers WHERE phone IS NULL:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 1
+mysql> SELECT * FROM customers WHERE phone IS NULL;
++-------------+------------+-----------+------------+-------+----------------+-----------+-------+--------+
+| customer_id | first_name | last_name | birth_date | phone | address        | city      | state | points |
++-------------+------------+-----------+------------+-------+----------------+-----------+-------+--------+
+|           5 | Clemmie    | Betchley  | 1973-11-07 | NULL  | 5 Spohn Circle | Arlington | TX    |   3675 |
++-------------+------------+-----------+------------+-------+----------------+-----------+-------+--------+
+1 row in set (0.01 sec)
+
+mysql> # ORDER BY clause
+mysql> -- Sort customers by state (in ascending order), and then by their first_name in descending order
+mysql> SELECT * FROM customers
+    -> ORDER BY state, first_name DESC;
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+| customer_id | first_name | last_name  | birth_date | phone        | address                | city             | state | points |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+|           9 | Romola     | Rumgay     | 1992-05-23 | 559-181-3744 | 3520 Ohio Trail        | Visalia          | CA    |   1486 |
+|           3 | Freddi     | Boagey     | 1985-02-07 | 719-724-7869 | 251 Springs Junction   | Colorado Springs | CO    |   2967 |
+|           8 | Thacher    | Naseby     | 1993-07-17 | 941-527-3977 | 538 Mosinee Center     | Sarasota         | FL    |    205 |
+|           4 | Ambur      | Roseburgh  | 1974-04-14 | 407-231-8017 | 30 Arapahoe Terrace    | Orlando          | FL    |    457 |
+|          10 | Levy       | Mynett     | 1969-10-13 | 404-246-3370 | 68 Lawn Avenue         | Atlanta          | GA    |    796 |
+|           6 | Elka       | Twiddell   | 1991-09-04 | 312-480-8498 | 7 Manley Drive         | Chicago          | IL    |   3073 |
+|           1 | Babara     | MacCaffrey | 1986-03-28 | 781-932-9754 | 0 Sage Terrace         | Waltham          | MA    |   2273 |
+|           7 | Ilene      | Dowson     | 1964-08-30 | 615-641-4759 | 50 Lillian Crossing    | Nashville        | TN    |   1672 |
+|           5 | Clemmie    | Betchley   | 1973-11-07 | NULL         | 5 Spohn Circle         | Arlington        | TX    |   3675 |
+|           2 | Ines       | Brushfield | 1986-04-13 | 804-427-9456 | 14187 Commercial Trail | Hampton          | VA    |    947 |
++-------------+------------+------------+------------+--------------+------------------------+------------------+-------+--------+
+10 rows in set (0.00 sec)
+
+mysql> exit;

@@ -1,0 +1,348 @@
+22 Jun 2025              MySQL                  Sun
+---------------------------------------------------
+* basics
+
+SELECT
+WHERE
+ORDER BY
+LIMIT
+DISTINCT
+
+GROUP BY
+HAVING
+---------------------------------------------------
+* aggregate functions
+
+AVG
+MIN
+MAX
+SUM
+COUNT
+---------------------------------------------------
+* joins
+
+INNER JOIN / JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN
+SELF JOIN
+CROSS JOIN
+
+Joins in SQL are used to combine rows from two or
+more tables based on a related column (usually a
+foreign key to a primary key).
+
+### 1. INNER JOIN
+
+Returns only the rows that have **matching values**
+in both tables.
+
+```sql
+SELECT *
+FROM orders
+INNER JOIN users ON orders.user_id = users.user_id;
+```
+
+Only shows orders that belong to users who exist.
+
+---
+
+### 2. LEFT JOIN (or LEFT OUTER JOIN)
+
+Returns **all rows from the left table** and the
+**matched rows from the right table**. If there is
+no match, NULL is returned from the right table.
+
+```
+SELECT *
+FROM users
+LEFT JOIN orders ON users.user_id = orders.user_id;
+```
+
+Shows all users, even if they haven't placed any orders.
+
+---
+
+### 3. RIGHT JOIN (or RIGHT OUTER JOIN)
+
+Returns **all rows from the right table** and the
+**matched rows from the left table**.
+
+```
+SELECT *
+FROM orders
+RIGHT JOIN users ON orders.user_id = users.user_id;
+```
+
+Same as LEFT JOIN, but all rows from `orders` side.
+
+---
+
+### 4. FULL OUTER JOIN *(Not natively supported in MySQL)*
+
+Returns **all rows when there is a match in either
+left or right table**. Missing matches are filled with
+NULLs.
+
+MySQL workaround:
+
+```
+SELECT *
+FROM users
+LEFT JOIN orders ON users.user_id = orders.user_id
+UNION
+SELECT *
+FROM users
+RIGHT JOIN orders ON users.user_id = orders.user_id;
+```
+
+---
+
+### 5. CROSS JOIN
+
+Returns the **Cartesian product** - every combination
+of rows between the two tables.
+
+```
+SELECT *
+FROM users
+CROSS JOIN products;
+```
+
+If `users` has 3 rows and `products` has 4, the result
+will have 3 × 4 = 12 rows.
+
+### 6. SELF JOIN
+
+Joining a table **with itself**.
+
+```
+SELECT a.name AS Employee, b.name AS Manager
+FROM employees a
+JOIN employees b ON a.manager_id = b.emp_id;
+```
++-----------------+------------------------------------+---------+
+| Join Type       | Description                        | NULLs?  |
+| --------------- | ---------------------------------- | ------- |
+| INNER JOIN      | Only matching rows                 | NO      |
+| LEFT JOIN       | All left rows + matched right rows | YES     |
+| RIGHT JOIN      | All right rows + matched left rows | YES     |
+| FULL OUTER JOIN | All rows from both sides           | YES     |
+| CROSS JOIN      | Every combo of both tables         | NO      |
+| SELF JOIN       | A table joined to itself           | Depends |
++-----------------+------------------------------------+---------+
+
+---------------------------------------------------
+* indexes and performance
+
+types of indexes:
+PRIMARY
+UNIQUE
+FULLTEXT
+INDEX
+how indexing affects performance
+------------------
+### Primary Key
+
+A Primary Key is a column (or a set of columns)
+that uniquely identifies each row in a table.
+
+#Characteristics:
+
+Unique: No two rows can have the same primary key
+value.
+Not Null: Cannot contain NULL values.
+Each table can have only one primary key.
+Often used for referencing rows from other tables.
+
+#Example:
+
+```
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+```
+Here, user_id is the primary key. No two users can
+have the same user_id.
+
+------------------
+
+### Foreign Key
+
+A Foreign Key is a column (or set of columns) in
+one table that refers to the primary key in another
+table. It's used to establish a relationship between
+tables.
+
+#Characteristics:
+
+Enforces referential integrity between parent and
+child tables.
+Can have duplicate values (i.e., many children can
+refer to one parent).
+Can contain NULLs (optional reference).
+
+#Example:
+
+```
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+```
+here,
+orders.user_id is a foreign key referencing
+users.user_id.
+This ensures that each user_id in orders must exist
+in the users table.
+
+#Real-Life Analogy:
+
+Primary Key = A person's Aadhar number
+(unique to each individual)
+Foreign Key = A person's "referred by" field that
+points to someone else's Aadhar number
+
+
+---------------------------------------------------
+* transactions and ACID properties
+
+BEGIN
+COMMIT
+ROLLBACK
+
+Atomicity, Consistency, Isolation, Durability
+--------------------------------------------------
+* stored procedures, functions and triggers
+
+creating and calling them
+use cases and differnces
+--------------------------------------------------
+* views
+
+creating, updating, benefits/limitations
+--------------------------------------------------
+* some more features of MySQL
+
+AUTO_INCREMENT
+ENUM
+JSON data type
+differnces fro other RDBMS
+--------------------------------------------------
+* Normalization
+
+It is the process of organizing data in a database to:
+
+* **Reduce redundancy** (no repeated data)
+* **Ensure data integrity** (less chance of anomalies)
+* **Improve efficiency** in updates and storage
+---
+## 1NF (First Normal Form)
+
+Rule:
+
+* Every **column must contain only atomic
+(indivisible)** values.
+* **No repeating groups or arrays** in a single column.
+
+Bad Example:
+
++-----------+-------+---------------+
+| StudentID | Name  | Courses       |
+| --------- | ----- | ------------- |
+| 1         | Alice | Math, Science |
++-----------+-------+---------------+
+
+Normalized to 1NF:
+
++-----------+-------+---------+
+| StudentID | Name  | Course  |
+| --------- | ----- | ------- |
+| 1         | Alice | Math    |
+| 1         | Alice | Science |
++-----------+-------+---------+
+
+---
+## 2NF (Second Normal Form)
+
+Rule:
+
+* Must be in **1NF**
+* **No partial dependency**: Non-key columns must depend
+on the **whole primary key**, not just part of it
+
+Bad Example (composite key: StudentID + CourseID):
+
++-----------+----------+-------------+
+| StudentID | CourseID | StudentName |
+| --------- | -------- | ----------- |
+| 1         | 101      | Alice       |
++-----------+----------+-------------+
+
+`StudentName` depends **only on StudentID**,
+not the whole key.
+
+Normalized to 2NF:
+
+**Students Table**
+
++-----------+-------------+
+| StudentID | StudentName |
+| --------- | ----------- |
+| 1         | Alice       |
++-----------+-------------+
+
+**Enrollments Table**
+
++-----------+----------+
+| StudentID | CourseID |
+| --------- | -------- |
+| 1         | 101      |
++-----------+----------+
+
+--------------------------------------
+## 3NF (Third Normal Form)
+
+Rule:
+
+* Must be in **2NF**
+* **No transitive dependency**: Non-key columns must
+depend **only on the primary key**, not on other
+non-key columns
+
+Bad Example:
+
++-----------+-------+------------+-----------+
+| StudentID | Name  | Department | DeptHead  |
+| --------- | ----- | ---------- | --------- |
+| 1         | Alice | CS         | Dr. Smith |
++-----------+-------+------------+-----------+
+`DeptHead` depends on `Department`, not directly on
+`StudentID`.
+
+Normalized to 3NF:
+
+**Departments Table**
+
++------------+-----------+
+| Department | DeptHead  |
+| ---------- | --------- |
+| CS         | Dr. Smith |
++------------+-----------+
+
+**Students Table**
+
++-----------+-------+------------+
+| StudentID | Name  | Department |
+| --------- | ----- | ---------- |
+| 1         | Alice | CS         |
++-----------+-------+------------+
+
+Why It Matters
+
+* **Avoids anomalies** in INSERT, UPDATE, DELETE
+* **Efficient storage** and maintenance
+* Improves **data consistency**
+

@@ -1,0 +1,58 @@
+###  **Core Topics to Master**
+
+* SQL Basics**
+
+   ** Data types (INT, VARCHAR, DATE, etc.)
+   ** `CREATE`, `INSERT`, `UPDATE`, `DELETE`
+   ** `SELECT` with `WHERE`, `ORDER BY`, `LIMIT`, `DISTINCT`
+
+* Joins**
+
+   ** `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN` (not directly in MySQL, but understand with `UNION`)
+   ** Self joins and cross joins
+
+* Aggregate Functions**
+
+   ** `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`
+   ** Grouping with `GROUP BY` and filtering with `HAVING`
+
+* Subqueries & CTEs**
+
+   ** Subqueries in `WHERE`, `FROM`, `SELECT`
+   ** `WITH` clause (MySQL 8.0+)
+
+* Indexes & Performance**
+
+   ** Types of indexes (`PRIMARY`, `UNIQUE`, `FULLTEXT`, `INDEX`)
+   ** How indexing affects performance
+
+* Normalization**
+
+   ** 1NF, 2NF, 3NF – what they mean and why they matter
+
+* Transactions & ACID Properties**
+
+  ** `BEGIN`, `COMMIT`, `ROLLBACK`
+  ** Atomicity, Consistency, Isolation, Durability
+
+* Stored Procedures, Functions, and Triggers**
+
+  ** Creating and calling them
+  ** Use cases and differences
+
+* Views**
+
+  ** Creating, updating, and benefits/limitations
+
+* MySQL-Specific Features**
+
+   ** `AUTO_INCREMENT`, `LIMIT`, `ENUM`, `JSON` data type
+   ** Differences from other RDBMS
+
+---
+
+**Practice Questions**
+
+* A list of common **interview questions**?
+* Some **hands-on SQL query problems** to solve?
+* A mock interview simulation?
