@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers Rounding Table</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 20px;
+            background-color: #151515;
+        }
+        .container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .config {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .config input {
+            background-color: #555;
+            color: white;
+            border: 1px solid #777;
+            padding: 8px;
+            margin: 0 10px;
+            border-radius: 4px;
+            width: 80px;
+            text-align: center;
+        }
+        .config button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .config button:hover {
+            background-color: #1976D2;
+        }
+        .config label {
+            color: white;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto 20px auto;
+            background-color: #151515;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px 10px;
+            text-align: center;
+            min-width: 45px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+        .number-cell {
+            font-weight: bold;
+        }
+        /* Simple color coding for rounding to nearest 100 */
+        .round-pink { background-color: #E75480 !important; color: white !important; } 
+        .round-red { background-color: #FF0000 !important; color: white !important; } 
+        
+        /* Special styling for exact multiples of 100 */
+        .hundred {
+            background-color: #FFFF00 !important;
+            font-weight: bold;
+            color: #000000 !important;
+            border: 2px solid #FFD700 !important;
+        }
+        
+        .legend {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 5px 10px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Numbers Rounding to Nearest 100s</h1>
+        
+        <div class="config">
+            <label for="startInput">Start Number:</label>
+            <input type="number" id="startInput" value="200" min="1">
+            
+            <label for="endInput">End Number:</label>
+            <input type="number" id="endInput" value="3000" min="1">
+            
+            <button onclick="updateTable()">Update Table</button>
+        </div>
+        
+       <!-- <div class="legend">
+            <strong>Legend:</strong>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #E75480;"></span>
+                Rounds to even hundreds (200, 400, 600...)
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #FF6B6B;"></span>
+                Rounds to odd hundreds (100, 300, 500...)
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #FFFF00; border: 2px solid #FFD700;"></span>
+                Exact multiples of 100
+            </div>
+        </div>
+        -->
+	
+        <div id="sectionsContainer"></div>
+    </div>
+
+    <script>
+        //let startNum = 200;
+        //let endNum = 3000;
+
+        function generateSection(sectionStart, sectionEnd, sectionTitle) {
+            const section = document.createElement('div');
+            section.className = 'section';
+            
+            // Section title
+            const title = document.createElement('div');
+            title.className = 'section-title';
+            title.textContent = sectionTitle;
+            section.appendChild(title);
+            
+            // Table
+            const table = document.createElement('table');
+            const tbody = document.createElement('tbody');
+            
+            // Generate 10 rows (for digits 1-9 and 0)
+            for (let digit = 1; digit <= 10; digit++) {
+                const row = document.createElement('tr');
+                
+                // For each row, generate numbers that end with this digit within the range
+                for (let base = Math.floor((sectionStart - 1) / 10); base <= Math.floor(sectionEnd / 10); base++) {
+                    let num;
+                    if (digit === 10) {
+                        // Handle 0s: 10, 20, 30, 40, ..., etc.
+                        num = (base + 1) * 10;
+                    } else {
+                        // Handle 1-9: digit, digit+10, digit+20, ...
+                        num = base * 10 + digit;
+                    }
+                    
+                    // Only show numbers within the current section range AND overall range
+                    if (num >= sectionStart && num <= sectionEnd && num >= startNum && num <= endNum) {
+                        const cell = document.createElement('td');
+                        cell.className = 'number-cell';
+                        cell.textContent = num;
+                        
+                        // Color coding based on what they round to
+                        const roundedTo = Math.round(num / 100) * 100;
+                        const roundedHundreds = roundedTo / 100;
+                        
+                        // Alternate between pink and red for rounding groups
+                        if (roundedHundreds % 2 === 0) {
+                            cell.classList.add('round-pink');
+                        } else {
+                            cell.classList.add('round-red');
+                        }
+                        
+                        // Special highlighting for exact multiples of 100
+                        if (num % 100 === 0) {
+                            cell.classList.add('hundred');
+                        }
+                        
+                        row.appendChild(cell);
+                    }
+                }
+                
+                // Only add row if it has cells
+                if (row.children.length > 0) {
+                    tbody.appendChild(row);
+                }
+            }
+            
+            // Only add table if it has content
+            if (tbody.children.length > 0) {
+                table.appendChild(tbody);
+                section.appendChild(table);
+                return section;
+            }
+            return null;
+        }
+
+        function generateAllSections() {
+            const container = document.getElementById('sectionsContainer');
+            container.innerHTML = ''; // Clear existing content
+            
+            // Calculate which hundreds to include
+            const startHundred = Math.floor((startNum - 1) / 100) * 100;
+            const endHundred = Math.ceil(endNum / 100) * 100;
+            
+            // Generate sections for every 100 numbers in the range
+            for (let i = startHundred; i < endHundred; i += 100) {
+                const sectionStart = i + 1;
+                const sectionEnd = i + 100;
+                const sectionTitle = `Numbers ${sectionStart}-${sectionEnd}`;
+                
+                const section = generateSection(sectionStart, sectionEnd, sectionTitle);
+                if (section) {
+                    container.appendChild(section);
+                }
+            }
+        }
+
+        function updateTable() {
+            const startInput = document.getElementById('startInput');
+            const endInput = document.getElementById('endInput');
+            
+            startNum = parseInt(startInput.value) || 1;
+            endNum = parseInt(endInput.value) || 100;
+            
+            // Ensure start is less than end
+            if (startNum >= endNum) {
+                alert('Start number must be less than end number!');
+                return;
+            }
+            
+            // Update the main title
+            document.querySelector('h1').textContent = `Numbers ${startNum}-${endNum} - Rounding to Nearest 100s`;
+            
+            generateAllSections();
+        }
+
+        // Generate initial table
+        generateAllSections();
+    </script>
+</body>
+</html>
