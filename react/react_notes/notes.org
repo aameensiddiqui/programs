@@ -1,0 +1,242 @@
+* link
+https://chatgpt.com/share/6863cb29-dc58-8006-8350-33eb537687ff
+
+* 1. What are the key features of React.js?
+
+Created by Facebook
+dynamic and interactive applications
+component based
+front end library
+
+** features of react
+
+*** jsx (javascript syntax extention)
+combination of javascript and html
+can embed javascript objects inside html elements 
+jsx is not supported by the browser
+therefore BABEL COMPILER transcompiles the code into javascript code
+easy and understandable code
+
+#+begin_src javascript
+  const name = "Amin Siddiqui";
+  const ele = <h1>Welcome {name}</h1>;
+#+end_src
+
+*** Virtual DOM
+Document Object Model
+most important part of web
+as it divides into modules and executes the code
+Usually js frameworks updates the whole DOM at once
+which makes the web applications slow
+but react uses virtual DOM
+which is an exact copy of the actual DOM
+whenever there is modification in the web appication
+the whole virtual DOM is updated first and
+finds the difference between actual DOM and virtual DOM
+DOM finds the difference in the updated child components
+and updates only that part
+this makes DOM and web applications run faster
+DOM executes in memory so we can create seperate components
+which makes the DOM run faster
+
+*** one way data binding
+one directional flow of data
+from parent components to child components
+the properties(props) in the child components cannot return the data to its parent
+but it can have communication with its parent components
+to modify the states according to provided inputs
+
+*** extentions
+like: redux, flux, react native
+
+*** conditional statements
+#+begin_src javascript
+    const age = 21;
+    if(age >= 18){
+	<p>You are an adult. {age}</p>
+    } else {
+	<p>You are underage. {age}</p>
+    }
+
+    // or
+
+    {
+	age >= 18 ?
+	    (<p>You are an adult. {age}</p>)
+	    :
+	    (<p>You are underage. {age}</p>)
+    }
+  
+#+end_src
+
+*** components
+react divides it web page into components
+each component is part of the UI design
+which has it own UI design and logic
+component logic is written in js, so easy, runs faster, reusable
+
+
+
+* 2. What is the difference between React and Angular?
+
+| Feature              | React.js                                                    | Angular                                              |
+|----------------------+-------------------------------------------------------------+------------------------------------------------------|
+| Used as              | JavaScript library; updates virtual DOM; one-way data flow  | Framework; updates real DOM; two-way data flow       |
+| Released             | 2013                                                        | 2010                                                 |
+| Architecture         | Follows MVC; needs external libraries: Redux                | Follows MVVM; built-in tools for routing, navigation |
+| Performance          | Uses JSX; allows HTML-like syntax in JavaScript             | Subset of HTML                                       |
+| Preference           | Preferred for dynamic content; Instagram, Facebook, Twitter | Platform-independent; used by YouTube                |
+| Written              | JavaScript                                                  | TypeScript (Microsoft's superset of ES6)             |
+| Dependency Injection | Not supported                                               | Hierarchical Dependency Injection system supported   |
+| Routing              | Requires additional configuration/libraries                 | Comparatively easier; built-in support               |
+| Scalability          | Highly scalable                                             | Less scalable than React.js                          |
+| Data Binding         | Uni-directional (one-way)                                   | Bi-directional (two-way)                             |
+| DOM                  | Virtual DOM                                                 | Real/Regular DOM                                     |
+| Testing              | Unit testing supported                                      | Both unit and integration testing supported          |
+
+
+* 3. What is JSX and why is it used?
+javascript sysntax extention
+it can embed javascript code inside html elements
+used for its simpicity
+the browser does not support jsx
+so react transcompiles the jsx code into js code with the help of BABEL COMPILER
+
+* 4. What are components in React? Difference between functional and class components
+it is js function which returns html(jsx)
+it is reusable piece of ui
+components make it easier to build and manage large applications by breaking UI into independent, reusable blocks 
+
+*** Functional Components
+simple js functions
+use react hooks (useState, useEffect) for state and lifecycle
+
+#+begin_src javascript
+  function helloo(props){
+      return <h1>Hello, {props.name}</h1>
+  }
+  // or
+  const hello = ({name}) => <h1>Hello, {name}</h1>
+#+end_src
+
+*** Class Components
+have lifecycle methods
+were used before hooks
+
+#+begin_src javascript
+  class Welcome extends React.Component{
+      render(){
+	  return <h1>Welcome, {this.props.name}</h1>
+      }
+  }
+#+end_src
+
+**** summary:
+components: building blocks of UI
+functional component: easy, powerful with hooks
+class components: old, verbose, still supported
+
+* 5. What are props and state in React?
+props and state are two main ways of handling data in components
+they both influence what gets rendered on screen but they work differently
+
+*** Props(properties)
+read only data passed from parent to child/children
+used to customize and configure components
+Analogy: props are like arguments passed to a function
+
+#+begin_src javascript
+  function Welcome(name){
+      return <h1>Hello, {props.name}</h1>
+  }
+
+  <Welcome name="Amin">
+#+end_src
+
+name="Amin" is a prop
+Welcome component receives name as props.name
+
+**** key points
+props are imutable(cannot be changed inside child)
+used to pass data downward(parent -> child)
+
+*** State
+local data that a component owns and can change
+state is used to store and update UI related data (like counter, form inputs)
+Analogy: state is like components personal memory
+
+#+begin_src javascript
+  import {useState} from react;
+
+  export default function CounterApp(){
+      const[cnt, setCnt] = useState(0);
+      return(
+	  <>
+	      <p>{cnt}</p>
+	      <button onClick={()=>setCnt(cnt+1)}>increase</button>
+	      <button onClick={()=>setCnt(cnt-1)}>decrease</button>
+	  </>
+      )
+  }
+#+end_src
+
+here,
+cnt is a state value
+setCnt is a function to update the state
+
+
+* 6. What is the virtual DOM and how does React use it?
+Document Object Model
+DOM is the most important part in a website
+it divides into modules and executes the code
+many js frameworks like Angular.js updates the whole DOM whenever a component changes
+but react has virtual DOM, which is an actual copy of DOM
+whenever a component changes in react only virtual DOM changes
+and then it compares the difference between virtual DOM and real DOM
+and changes only the updated part.
+without rerendering the DOM
+therefore it is faster
+executes in memory
+
+
+* 7. What are React Hooks? Explain useState, useEffect, and useRef.
+*** useRef
+
+
+* 8. What is the difference between useEffect and componentDidMount?
+
+* 9. What are controlled and uncontrolled components in React?
+
+* 10. What is the purpose of keys in React lists?
+
+* 11. What is prop drilling and how can it be avoided?
+
+* 12. What is context API in React and how is it used?
+
+* 13. What is Redux? How does it work with React?
+
+* 14. What are middleware in Redux? Explain redux-thunk and redux-saga.
+
+* 15. What is the difference between Redux and Context API?
+
+* 16. What is React Router and how does routing work in React?
+
+* 17. What is lazy loading and code splitting in React?
+
+* 18. What is the difference between SSR, CSR, and SSG?
+
+* 19. What are higher-order components (HOCs) in React?
+
+* 20. What is memoization in React? Explain React.memo and useMemo.
+
+* 21. How does React handle forms and validation?
+
+* 22. What is the significance of lifting state up in React?
+
+* 23. What are portals in React?
+
+* 24. How does error boundary work in React?
+
+* 25. What are some performance optimization techniques in React?
+
+* 26. What are the new features introduced in recent React versions (like Suspense, Concurrent Mode)?
