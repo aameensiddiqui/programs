@@ -9,7 +9,8 @@ public class GCD
 	int a = scan.nextInt();
 	System.out.print("Enter second number: ");
 	int b = scan.nextInt();
-	System.out.print("Greatest Common Divisor of "+a+" & "+b+" is: "+gcd(a, b)+"\nLowest Common Multiple of "+a+" & "+b+" is: "+lcm(a, b)+"\n");
+	System.out.print("Greatest Common Divisor of "+a+" & "+b+" is: "+gcd(a, b)+
+			 "\nLowest Common Multiple of "+a+" & "+b+" is: "+lcm(a, b)+"\n");
     }
 
     private static int lcm(int a, int b)
