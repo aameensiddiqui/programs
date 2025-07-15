@@ -13,9 +13,9 @@ import java.sql.*;
 
 class Main {
     
+    final static String DB_URL = "jdbc:mysql://localhost/test";
     final static String USER   = "javadev";
     final static String PASS   = "pass123";
-    final static String DB_URL = "jdbc:mysql://localhost/test";
     final static String QUERY1 = "INSERT INTO testable VALUES (1, 'Chintu'), (2, 'Raju'), (3, 'Neha'), (4, 'Pappu'), (5, 'Mini')";
     final static String QUERY2 = "SELECT * FROM testable";
 
