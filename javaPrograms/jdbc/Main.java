@@ -12,7 +12,8 @@ class Main {
     final static String DB_URL = "jdbc:mysql://localhost/forjdbc";
     final static String USER   = "root";
     final static String PASS   = "root";
-    final static String QUERY1 = "INSERT INTO sample VALUES (1, 'Chintu'), (2, 'Raju'), (3, 'Neha'), (4, 'Pappu'), (5, 'Mini')";
+    // final static String QUERY1 = "INSERT INTO sample VALUES (1, 'Chintu'), (2, 'Raju'), (3, 'Neha'), (4, 'Pappu'), (5, 'Mini')";
+    final static String QUERY1 = "INSERT INTO sample VALUES (6, 'Neha')";
     final static String QUERY2 = "SELECT * FROM sample";
 
     public static void main(String[]args){
@@ -29,6 +30,8 @@ class Main {
 		System.out.println(rs.getInt("id")+" "+rs.getString("name"));
 	    }
 	    
+	    con.close();
+
 	} catch(SQLException e){
 	    e.printStackTrace();
 	}
