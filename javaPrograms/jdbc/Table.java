@@ -5,7 +5,7 @@ class Table {
     final static String DB_URL = "jdbc:mysql://localhost/forjdbc";
     final static String USER = "root";
     final static String PASS = "root";
-    final static String QUERY = "CREATE TABLE emailss (id INT AUTO_INCREMENT PRIMARY KEY, "+
+    final static String QUERY = "CREATE TABLE emails (id INT AUTO_INCREMENT PRIMARY KEY, "+
     "name VARCHAR(20) NOT NULL, email VARCHAR(50) NOT NULL)";
     
     public static void main(String[]args) {
