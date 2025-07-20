@@ -1,4 +1,4 @@
-package com.jdbc.imageinserter;
+package com.jdbc.mysqlQueries;
 
 import java.sql.Connection;
 import java.sql.Statement;
