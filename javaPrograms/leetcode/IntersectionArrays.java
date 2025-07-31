@@ -1,5 +1,5 @@
 class IntersectionArrays {
-    public void intersection(int[] nums1, int[] nums2) {
+    public static int[] intersection(int[] nums1, int[] nums2) {
         int[] map = new int[1001];  
         for (int num : nums1) {
             map[num] = 1;  
