@@ -88,7 +88,7 @@ class LinkedList
             if(position == 1) head = head.next;
             else {
                 Node x = head, y = head;
-                for(int i = 0; i < position-1; ++i) {
+                for(int i = 1; i < position-1; ++i) {
                     x = x.next; y = y.next;
                 }
                 x = x.next;

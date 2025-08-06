@@ -13,7 +13,7 @@ class Main
             System.out.println("0: Exit");               
             System.out.println("1: Create a LinkedList");
             System.out.println("2: Display LinkedList"); 
-            System.out.println("3: Add at the and");
+            System.out.println("3: Add at the end");
             System.out.println("4: Add at the begining");
             System.out.println("5: Add at a position");
             System.out.println("6: Delete a node");
