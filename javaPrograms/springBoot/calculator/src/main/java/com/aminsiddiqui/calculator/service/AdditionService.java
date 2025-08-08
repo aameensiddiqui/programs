@@ -13,8 +13,8 @@ public class AdditionService {
 	private static final Logger logger = LoggerFactory.getLogger(AdditionService.class);
 	
 	public ResultResponce add(TwoNumbers nums) {
-		logger.info("nums.getX(): ",nums.getX());
-		logger.info("nums.getY(): ",nums.getY());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
+				+nums.getX()+" "+nums.getY());
 		logger.info("Received these two numbers x={} y={}: ",nums.getX(), nums.getY());
 		long ans = nums.getX() + nums.getY();
 		logger.info("Adding numbers: {} & {}",nums.getX(), nums.getY());
