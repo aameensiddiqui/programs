@@ -11,4 +11,8 @@ class ExcelSheetColNum {
         String columnTitle = "AB";
         System.out.println(titleToNumber(columnTitle));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f559dce801cf19f04c050924b0a98c3d1956f30f
