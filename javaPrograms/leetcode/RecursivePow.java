@@ -1,4 +1,4 @@
-class RecursivePow {    
+class RecursivePow {
     /*
       0 : 2
       1 : 2*2 = 4
@@ -44,44 +44,47 @@ class RecursivePow {
     }
 }
  
-    /******************************************************/
-    //public static double solution(double x, int n) {
-    // double ans = 1.0;
-    // if(x == 1.0) return ans;
-    // long n2 = n;
-    // if(n2 < 0) n2 = -1*n2;
-    // while(n2 > 0) {
-    //     if(n2 % 2 == 1) {
-    //         ans = ans * x;
-    //         --n2;
-    //     } else {
-    //         x = x * x;
-    //         n2 = n2 / 2;
-    //     }
-    // }
-    // if(n < 0) ans = (double)(1.0) / (double)(ans);
-    // return ans;
-    //}
-    /******************************************************/
-    //public static double solution(double x, int n) {
-    // double ans = 1.0;
-    // if(x == 1.0) {
-    //     ans = n;
-    //     return ans;
-    // }
-    // long n2 = n;
-    // if(n2 < 0){
-    //     n2 = -1*n2;
-    //     for(int i = 0; i < n2; ++i) {
-    //         ans = ans / x;
-    //         log(i+" : "+ans);
-    //     }
-    // } else {
-    //     for(int i = 0; i < n2; ++i) {
-    //         ans = ans * x;
-    //         log(i+" : "+ans);
-    //     }    
-    // }
-        
-    // return ans;
-    //}
+/******************************************************/
+// public static double solution(double x, int n) {
+//     double ans = 1.0;
+//     if(x == 1.0) return ans;
+//     long n2 = n;
+//     if(n2 < 0) n2 = -1*n2;
+//     while(n2 > 0) {
+//         if(n2 % 2 == 1) {
+//             ans = ans * x;
+//             --n2;
+//         } else {
+//             x = x * x;
+//             n2 = n2 / 2;
+//         }
+//     }
+//     if(n < 0) ans = (double)(1.0) / (double)(ans);
+//     return ans;
+// }
+/******************************************************/
+
+
+/******************************************************/
+// public static double solution(double x, int n) {
+//     double ans = 1.0;
+//     if(x == 1.0) {
+//         ans = n;
+//         return ans;
+//     }
+//     long n2 = n;
+//     if(n2 < 0){
+//         n2 = -1*n2;
+//         for(int i = 0; i < n2; ++i) {
+//             ans = ans / x;
+//             log(i+" : "+ans);
+//         }
+//     } else {
+//         for(int i = 0; i < n2; ++i) {
+//             ans = ans * x;
+//             log(i+" : "+ans);
+//         }    
+//     }
+//     return ans;
+// }
+/******************************************************/
