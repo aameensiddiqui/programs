@@ -35,41 +35,69 @@
   Explanation: The only possible triplet sums up to 0.
 */
 import java.util.*;
-import java.io.*;
 class ThreeSome {
     public static List<List<Integer>> threeSum(int[]arr) {
-        Set<List<Integer>> st = new HashSet<>();
-        for(int i = 0; i < arr.length; ++i) {
-            for(int j = i+1; j < arr.length; ++j) {
-                for(int k = j+1; k < arr.length; ++k) {
-                    if((arr[i]+arr[j]+arr[k]) == 0) {
-                        List<Integer> list = Arrays.asList(arr[i], arr[j], arr[k]);
-                        list.sort(null);
-                        st.add(list);
-                    }
+        int n = arr.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(arr);
+        for(int i = 0; i < n; ++i) {
+            /* for removing duplicates in the array */
+            if(i != 0 && arr[i] == arr[i-1]) continue;
+            
+            int j = i+1, k = n-1;
+
+            while(j < k) {
+                int sum = arr[i]+arr[j]+arr[k];
+                if(sum < 0) ++j;
+                else if(sum > 0) --k;
+                else {
+                    List<Integer> temp = Arrays.asList(arr[i], arr[j], arr[k]);
+                    ans.add(temp);
+                    ++j; --k;
+
+                    /* skipping the duplicates */
+                    while(j < k && arr[j] == arr[j-1]) ++j;
+                    while(j < k && arr[k] == arr[k+1]) --k;
                 }
             }
         }
-        List<List<Integer>> ans = new ArrayList<>(st);
         return ans;
     }
     public static void main(String[]args) {
-        // int[]arr = {-1, 0, 1, 2, -1, -4};
+        int[]arr = {-1, 0, 1, 2, -1, -4};
         // int[]arr = {0, 0, 0};
         // int[]arr = {0, 1, 1};
         log(threeSum(arr));
         
-        
-        // String fileName = "3SumOutput.txt";
-        // try(PrintWriter pr = new PrintWriter(new FileWriter(fileName))) {
-        //     pr.println(threeSum(arr));
-        //     log("[OK] writtern o/p in the file.");
-        // } catch(Exception e) {
-        //     log("[NOT OK] koi error aya: ", e.getMessage());
-        //     e.printStackTrace();
-        // }
     }   
     public static void log(Object...args) {
         for(Object ob : args) System.out.println(ob);
     }
 }
+/********************************************************************/
+// public static List<List<Integer>> threeSum(int[]arr) {
+//     Set<List<Integer>> st = new HashSet<>();
+//     for(int i = 0; i < arr.length; ++i) {
+//         for(int j = i+1; j < arr.length; ++j) {
+//             for(int k = j+1; k < arr.length; ++k) {
+//                 if((arr[i]+arr[j]+arr[k]) == 0) {
+//                     List<Integer> list = Arrays.asList(arr[i], arr[j], arr[k]);
+//                     list.sort(null);
+//                     st.add(list);
+//                 }
+//             }
+//         }
+//     }
+//     List<List<Integer>> ans = new ArrayList<>(st);
+//     return ans;
+// }
+/********************************************************************/
+// String fileName = "3SumOutput.txt";
+// try(PrintWriter pr = new PrintWriter(new FileWriter(fileName))) {
+//     pr.println(threeSum(arr));
+//     log("[OK] writtern o/p in the file.");
+// } catch(Exception e) {
+//     log("[NOT OK] koi error aya: ", e.getMessage());
+//     e.printStackTrace();
+// }
+/********************************************************************/
