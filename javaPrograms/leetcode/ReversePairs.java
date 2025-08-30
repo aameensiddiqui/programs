@@ -77,14 +77,13 @@ class ReversePairs {
         int n = arr.length;
         return mergeSort(arr, 0, n-1);
     }
-    
     public static void main(String[]args) {
         Log log = new Log();
         //int[]arr = {1,3,2,3,1};
         //int[]arr = {2,4,3,5,1};
         int[]arr = {2147483647,2147483647,2147483647,2147483647,2147483647,2147483647}; // 0
         log.info(reversePairs(arr));
-    } 
+    }
 }
 /* *
  *   public static int reversePairs(int[]arr) {
@@ -94,8 +93,7 @@ class ReversePairs {
  *          for(int j = i+1; j < n; ++j) {
  *              long m = 2L * arr[j];
  *              if((long)arr[i] > m) cnt++;
- *              
- *          }            
+ *          }
  *      }
  *      return cnt;
  *  }
