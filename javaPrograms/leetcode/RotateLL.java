@@ -18,10 +18,14 @@ class RotateLL {
         c.addNodeAtEnd(head, 3);
         c.addNodeAtEnd(head, 4);
         c.addNodeAtEnd(head, 5);
+        c.addNodeAtEnd(head, 6);
+        c.addNodeAtEnd(head, 7);
+        c.addNodeAtEnd(head, 8);
         p.printLL(head);
 
         //head = rotateRight(head, 2);
-        head = rotateRight(head, 2000000000);
+        //head = rotateRight(head, 2000000000);
+        head = rotateRight(head, 363243333);
         p.printLL(head);
     }
     private static final Log log = new Log();
