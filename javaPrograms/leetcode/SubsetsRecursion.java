@@ -13,7 +13,9 @@ class SubsetsRecursion {
         ans.add(new ArrayList<>(list));
         for(int i = start; i < arr.length; ++i) {
             list.add(arr[i]);
+            log.info("before backtracking: "+list);
             backtrack(ans, list, arr, i+1);
+            log.info("after  backtracking: "+list);
             list.remove(list.size()-1);
         }
     }
