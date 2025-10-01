@@ -8,7 +8,7 @@ class Bit {
         else if(dividend >= 0 && divisor < 0) sign = false;
 
         long n = Math.abs((long) dividend); // Math.abs() converts to int first which can cause wrong ans
-        long d = Math.abs((long) divisor);
+        long d = Math.abs((long) divisor);  // so parse it with long first then do abs()
         long q = 0;
 
         while(n >= d) {
