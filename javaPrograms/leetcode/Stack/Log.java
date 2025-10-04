@@ -19,4 +19,3 @@ public class Log {
     }
 }
 // amin siddiqui
-// azan siddiqui
