@@ -18,4 +18,3 @@ public class Log {
         }
     }
 }
-// amin siddiqui
