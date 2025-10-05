@@ -1,6 +1,30 @@
-import java.util.Stack;
-import java.util.HashMap;
 class NextGreaterElementI {
+    public static int[] nextGreaterElement(int[]nums1, int[]nums2) {
+        int[]hash = new int[10001];
+        int[]ans = new int[nums1.length];
+        
+        for(int i = 0; i < nums2.length; ++i)
+            hash[nums2[i]] = i;
+
+        for(int i = 0; i < nums1.length; ++i)
+            ans[i] = greater(hash[nums1[i]], nums2);
+
+        return ans;
+    }
+    public static int greater(int index, int[]nums2) {
+        int x = nums2[index];
+        for(int i = index+1; i < nums2.length; ++i)
+            if(x < nums2[i]) return nums2[i];
+        return -1;
+    }
+    public static void main(String[]args) {
+        int[]nums1 = {4, 2, 1};
+        int[]nums2 = {1, 3, 4, 2};
+        log.info(nextGreaterElement(nums1, nums2));
+    }
+    private static final Log log = new Log();
+}
+/**
     public static int[] nextGreaterElement(int[]nums1, int[]nums2) {
         int[]ans = new int[nums1.length];
         Stack<Integer> st = new Stack<>();
@@ -15,13 +39,8 @@ class NextGreaterElementI {
             ans[i] = freq.get(nums1[i]);
         return ans;
     } 
-    public static void main(String[]args) {
-        int[]nums1 = {4, 2, 1};
-        int[]nums2 = {1, 3, 4, 2};
-        log.info(nextGreaterElement(nums1, nums2));
-    }
-    private static final Log log = new Log();
-}
+
+ */
 /**
    public static int[] nextGreaterElement(int[]nums1, int[]nums2) {
         int[]ans = new int[nums1.length];
