@@ -27,6 +27,32 @@
 */
 class LongestRepeatingSubstringReplacement {
     public static int characterReplacement(String s, int k) {
+        int maxLength = 0, maxFreq = 0, l = 0, r = 0;
+        int[]freq = new int[26];
+        while(r < s.length()) {
+            freq[s.charAt(r) - 'A']++;
+            maxFreq = Math.max(maxFreq, freq[s.charAt(r) - 'A']);
+            while((r - l + 1) - maxFreq > k) {
+                freq[s.charAt(l) - 'A']--;
+                l++;
+            }
+            maxLength = Math.max(maxLength, (r - l + 1));
+            r++;
+        }
+        return maxLength;
+    }
+    public static void main(String[]args) {
+        String s1 = "ABAB";
+        String s2 = "AABABBA";
+        int k1 = 2;
+        int k2 = 1;
+        log.info(characterReplacement(s1, k1));
+        log.info(characterReplacement(s2, k2));
+    }
+    private static final Log log = new Log();
+}
+/**
+    public static int characterReplacement(String s, int k) {
         int maxLength = 0;
         int l = 0;
         int maxFreq = 0;
@@ -42,16 +68,7 @@ class LongestRepeatingSubstringReplacement {
         }
         return maxLength;
     }
-    public static void main(String[]args) {
-        String s1 = "ABAB";
-        String s2 = "AABABBA";
-        int k1 = 2;
-        int k2 = 1;
-        log.info(characterReplacement(s1, k1));
-        log.info(characterReplacement(s2, k2));
-    }
-    private static final Log log = new Log();
-}
+ */
 /**
     public static int characterReplacement(String s, int k) {
         int maxLength = 0;
