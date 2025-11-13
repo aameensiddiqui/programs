@@ -26,24 +26,52 @@
    The number of nodes in the tree is in the range [0, 100].
    -100 <= Node.val <= 100 
  */
+class PreorderTraversal {
+    public List<Integer> preorderTraversal(Node root) {
+        List<Integer> list = new ArrayList<>();
+        preorder(root, list);
+        return list;
+    }
+    public void preorder(Node root, List<Integer> list) {
+        if(root == null) return;
+        list.add(root.data);
+        preorder(root.left, list);
+        preorder(root.right, list);
+    }
+    /***********************************/
+    public List<Integer> iterativePreorderTraversal(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        if(root == null) return ans;
+        Stack<Node> st = new Stack<>();
+        st.push(root);
+        while(!st.empty()) {
+            root = st.pop();
+            ans.add(root.data);
+            if(root.right != null) st.push(root.right);
+            if(root.left != null) st.push(root.left);
+        }
+        return ans;
+    }
+}
+
 void main() {
     Node root = new Node(1);
     root.left = new Node(2);
     root.right = new Node(3);
+    
     root.left.left = new Node(4); 
     root.left.right = new Node(5);
-    root.left.right.left = new Node(6);
+    
+    root.right.left = new Node(6);
+    root.right.right = new Node(7);
 
-    root.right = new Node(3);
-    root.right.left = new Node(7);
-    root.right.right = new Node(8);
-    root.right.right.left = new Node(9);
-    root.right.right.right = new Node(10);
-
-    printPreOrder(root);
-    System.out.println();
+    Log log = new Log();
+    PreorderTraversal pt = new PreorderTraversal();
+    log.info(pt.preorderTraversal(root));
+    log.info(pt.iterativePreorderTraversal(root));
 }
 
+/**
 void printPreOrder(Node move) {
     if(move != null) {
         System.out.print(move.data+" ");
@@ -51,16 +79,4 @@ void printPreOrder(Node move) {
         printPreOrder(move.right);
     }
 }
-/**
-   public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        preorder(root, list);
-        return list;
-    }
-    public void preorder(TreeNode root, List<Integer> list) {
-        if(root == null) return;
-        list.add(root.val);
-        preorder(root.left, list);
-        preorder(root.right, list);
-    }
  */
