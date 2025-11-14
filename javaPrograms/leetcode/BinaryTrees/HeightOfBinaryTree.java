@@ -21,20 +21,11 @@
 import java.util.*;
 class HeightOfBinaryTree {
     public int maxDepth(Node root) {
-        List<List<Integer>> l = new ArrayList<>();
-        Queue<Node> q = new LinkedList<>();
-        q.offer(root);
-        while(!q.isEmpty()) {
-            List<Integer> sl = new ArrayList<>();
-            int s = q.size();
-            for(int i = 0; i < s; ++i) {
-                if(q.peek().left != null) q.offer(q.peek().left);
-                if(q.peek().right != null) q.offer(q.peek().right);
-                sl.add(q.poll().data);
-            }
-            l.add(sl);
-        }
-        return l.size();
+        if(root == null) return 0;
+        int l = maxDepth(root.left);
+        int r = maxDepth(root.right);
+        return 1 + Math.max(l, r);
+        // return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
 
@@ -50,3 +41,21 @@ void main() {
     HeightOfBinaryTree h = new HeightOfBinaryTree();
     log.info(h.maxDepth(root));
 }
+/**
+    public int maxDepth(Node root) {
+        List<List<Integer>> l = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()) {
+            List<Integer> sl = new ArrayList<>();
+            int s = q.size();
+            for(int i = 0; i < s; ++i) {
+                if(q.peek().left != null) q.offer(q.peek().left);
+                if(q.peek().right != null) q.offer(q.peek().right);
+                sl.add(q.poll().data);
+            }
+            l.add(sl);
+        }
+        return l.size();
+    }
+ */
