@@ -222,20 +222,39 @@ class Main {
         else {
             log.info("FIGHTING****************************************");
             log.info("You've woken the dragon from his deep sleep.");
-            while(bheemHealth >= 0 && dragonHealth >= 0) {
-                int bheemAttack  = r.nextInt(10);
-                int dragonAttack = r.nextInt(5);
-                bheemHealth  -= dragonAttack;
-                dragonHealth -= bheemAttack;
-                log.info("Dragon dealt "+dragonAttack+" damage. You health is "+bheemHealth);
-                log.info("You dealt "+bheemAttack+" damage. Dragon health is "+dragonHealth);
-            }
+
+            fighting();
+
             if(dragonHealth <= 0) didKillDragon = true;
             if(bheemHealth <= 0) didKillDragon = false;
             log.info("****************************************FIGHTING");
             gameOver();
         }
-    } // end of fight    
+    } // end of fight
+
+    public static void fighting() {
+        if(bheemHealth >= 0 && dragonHealth >= 0) {
+            int bheemAttack  = r.nextInt(10);
+            int dragonAttack = r.nextInt(5);
+            bheemHealth  -= dragonAttack;
+            dragonHealth -= bheemAttack;
+            System.out.printf("Dragon dealt : %02d damage.   Your  health : %02d\n", dragonAttack, bheemHealth);
+            System.out.printf(" You   dealt : %02d damage.  Dragon health : %02d\n", bheemAttack, dragonHealth);
+
+            if(bheemHealth <= 0 || dragonHealth <= 0) return;
+
+            log.info("************************************************");
+            System.out.print("Press 1 to attack! : ");
+            int choose = scan.nextInt();
+            log.info("************************************************");
+            
+            switch(choose) {
+            case 1:
+                fighting();
+            }
+        } else return;
+
+    } // end of fighting
 } // end of class
 
 /**
