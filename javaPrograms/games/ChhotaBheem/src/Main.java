@@ -7,7 +7,7 @@ class Main {
     private static Log log = new Log();
     private static Random r = new Random();
 
-    static int bheemHealth  = 10;
+    static int bheemHealth  = 15;
     static int dragonHealth = 20;
     static int swordDamage = 4;
     static int fireBreathDamage = 6;
@@ -260,8 +260,8 @@ class Main {
 
     public static void fighting() {
         if(bheemHealth >= 0 && dragonHealth >= 0) {
-            int bheemAttack  = r.nextInt(10);
-            int dragonAttack = r.nextInt(5);
+            int bheemAttack  = r.nextInt(10) + swordDamage;
+            int dragonAttack = r.nextInt(5) + fireBreathDamage;
             bheemHealth  -= dragonAttack;
             dragonHealth -= bheemAttack;
             System.out.printf("Dragon dealt : %02d damage.   Your  health : %02d\n", dragonAttack, bheemHealth);
