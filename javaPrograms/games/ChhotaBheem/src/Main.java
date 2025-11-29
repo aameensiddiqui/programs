@@ -7,7 +7,7 @@ class Main {
     private static Log log = new Log();
     private static Random r = new Random();
 
-    static int bheemHealth  = 15;
+    static int bheemHealth = 15;
     static int dragonHealth = 20;
     static int swordDamage = 4;
     static int fireBreathDamage = 6;
