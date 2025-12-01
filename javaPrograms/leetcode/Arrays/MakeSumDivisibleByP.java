@@ -40,17 +40,17 @@ class MakeSumDivisibleByP {
     private static int minSubarray(int[]nums, int p) {
         int sum = 0;
         int n = nums.length;
-        
+
         for(int i = 0; i < n; ++i) sum = (sum + nums[i]) % p;
         int target = sum % p;
         if(target == 0) return 0;
 
         HashMap<Integer, Integer> mpp = new HashMap<>();
         mpp.put(0, -1);
-        
+
         int minLen = n;
         int currSum = 0;
-        
+
         for(int i = 0; i < n; ++i) {
             currSum = (currSum + nums[i]) % p;
             int needed = (currSum - target + p) % p;
@@ -71,16 +71,16 @@ class MakeSumDivisibleByP {
     private static int minSubarray(int[]nums, int p) {
         long sum = 0;
         int n = nums.length;
-        
+
         for(int i = 0; i < n; ++i) sum += nums[i];
         if(sum % p == 0) return 0;
 
         int minLen = n;
-        
+
         for(int i = 0; i < n; ++i) {
             long s = 0;
             for(int j = i; j < n; ++j) {
-                s += nums[j];              
+                s += nums[j];
                 if((sum - s) % p == 0) {
                     minLen = Math.min(minLen, j - i + 1);
                 }
