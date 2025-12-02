@@ -70,16 +70,16 @@ class Solution {
     }
 
     private int partition(int[] nums, int lo, int hi) {
-        int i = lo;  
-        int j = hi + 1;  
-        int pivot = nums[lo];  
-        while (true) {  
+        int i = lo;
+        int j = hi + 1;
+        int pivot = nums[lo];
+        while (true) {
             while (i < hi && nums[++i] < pivot);
             while (j > lo && nums[--j] > pivot);
-            if (i >= j) break;  
-            swap(nums, i, j);  
-        }  
-        swap(nums, lo, j);  
+            if (i >= j) break;
+            swap(nums, i, j);
+        }
+        swap(nums, lo, j);
         return j;
     }
 
@@ -102,5 +102,5 @@ class Solution {
 }
 
 // 1 4 5 6 3 | 2
-//   ^      
+//   ^
 */
