@@ -25,8 +25,24 @@ class KthLargestElementInArr {
     public static int findKthLargest(int[]nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         for(int i = 0; i < k; ++i) pq.add(nums[i]);
+        Log.info("queue: "+pq);
         for(int i = k; i < nums.length; ++i) {
             if(nums[i] > pq.peek()) {
+                pq.poll();
+                pq.add(nums[i]);
+            }
+        }
+        return pq.peek();
+    }
+
+    public static int findKthSmallest(int[]nums, int k) {
+        //Arrays.sort(nums);
+        //return nums[k-1];
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for(int i = 0; i < k; ++i) pq.add(nums[i]);
+        Log.info("queue: "+pq);
+        for(int i = k; i < nums.length; ++i) {
+            if(nums[i] < pq.peek()) {
                 pq.poll();
                 pq.add(nums[i]);
             }
@@ -36,6 +52,8 @@ class KthLargestElementInArr {
     public static void main(String[]args) {
         IO.println(findKthLargest(new int[]{3,2,1,5,6,4}, 2));       // 5
         IO.println(findKthLargest(new int[]{3,2,3,1,2,4,5,5,6}, 4)); // 4
+        IO.println(findKthSmallest(new int[]{1,2,3,4,5}, 2));          // 2
+        IO.println(findKthSmallest(new int[]{-5,4,1,2,-3}, 5));        // 4
     }
 }
 /**
