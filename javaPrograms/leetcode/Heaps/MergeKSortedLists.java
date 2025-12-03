@@ -44,32 +44,21 @@ class ListNode {
 }
 
 class S {
-    public static ListNode mergeKLists(ListNode[] list) {
-        if(list.length == 0) return null;
-        
-        List<Integer> a = new ArrayList<>();
-        for(int i = 0; i < list.length; ++i) {
-            while(list[i] != null) {
-                a.add(list[i].val);
-                list[i] = list[i].next;
-            }
-        }
-        if(a.size() == 0) return null;
-        
-        Collections.sort(a);
+    public static ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+        for(ListNode node : lists) if(node != null) pq.add(node);
 
-        // Log.info("-------------");
-        // Log.info(a);
-        // Log.info("-------------");
+        ListNode dummy = new ListNode(0);
+        ListNode ans = dummy;
 
-        
-        ListNode d = new ListNode(a.get(0));
-        ListNode move = d;
-        for(int i = 1; i < a.size(); ++i) {
-            move.next = new ListNode(a.get(i));
-            move = move.next;
+        while(!pq.isEmpty()) {
+            ListNode smallest = pq.poll();
+            ans.next = smallest;
+            ans = ans.next;
+
+            if(smallest.next != null) pq.add(smallest.next);
         }
-        return d;
+        return dummy.next;
     }
     public static List<Integer> printListNode(ListNode list) {
         List<Integer> a = new ArrayList<>();
@@ -110,3 +99,32 @@ class MergeKSortedLists {
         
     }
 }
+/**
+    public static ListNode mergeKLists(ListNode[] list) {
+        if(list.length == 0) return null;
+        
+        List<Integer> a = new ArrayList<>();
+        for(int i = 0; i < list.length; ++i) {
+            while(list[i] != null) {
+                a.add(list[i].val);
+                list[i] = list[i].next;
+            }
+        }
+        if(a.size() == 0) return null;
+        
+        Collections.sort(a);
+
+        // Log.info("-------------");
+        // Log.info(a);
+        // Log.info("-------------");
+
+        
+        ListNode d = new ListNode(a.get(0));
+        ListNode move = d;
+        for(int i = 1; i < a.size(); ++i) {
+            move.next = new ListNode(a.get(i));
+            move = move.next;
+        }
+        return d;
+    }
+*/
