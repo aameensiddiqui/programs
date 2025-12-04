@@ -38,6 +38,31 @@
 import java.util.*;
 class S {
     public static int leastInterval(char[]tasks, int n) {
+        int[]freq = new int[128];
+
+        for(char c : tasks) freq[c]++;
+        // Log.info("freq="); Log.info(freq);
+
+        int maxFreq = 0;
+        for(int i : freq) maxFreq = Math.max(maxFreq, i);
+
+        int maxCnt = 0;
+        for(int i : freq) if(i == maxFreq) maxCnt++;
+
+        int formula = (maxFreq - 1) * (n + 1) + maxCnt;
+
+        return Math.max(formula, tasks.length);
+    }
+}
+class TaskSchedular {
+    public static void main(String[]args) {
+        IO.println(S.leastInterval(new char[]{'A','A','A','B','B','B'}, 2));
+        IO.println(S.leastInterval(new char[]{'A','C','A','B','D','B'}, 1));
+        IO.println(S.leastInterval(new char[]{'A','A','A','B','B','B'}, 3));
+    }
+}
+/**
+    public static int leastInterval(char[]tasks, int n) {
 
         // count frequency of each task
         Map<Character, Integer> mpp = new HashMap<>();
@@ -81,11 +106,4 @@ class S {
         }
         return totalTime;
     }
-}
-class TaskSchedular {
-    public static void main(String[]args) {
-        IO.println(S.leastInterval(new char[]{'A','A','A','B','B','B'}, 2));
-        IO.println(S.leastInterval(new char[]{'A','C','A','B','D','B'}, 1));
-        IO.println(S.leastInterval(new char[]{'A','A','A','B','B','B'}, 3));
-    }
-}
+*/
