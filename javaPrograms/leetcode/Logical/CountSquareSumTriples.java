@@ -22,6 +22,23 @@ class CountSquareSumTriples {
     public static int countTriples(int n) {
         int cnt = 0;
         for(int i = 1; i <= n; ++i) {
+            for(int j = 1; j <= n; j++) {
+                int k = (int) Math.sqrt(i*i + j*j + 1.0);
+                if(k <= n && k*k == i*i + j*j) cnt++;
+            }
+        }
+        return cnt;
+    }
+    public static void main(String[]args) {
+        IO.println(countTriples(5));  // 2
+        IO.println(countTriples(10)); // 4
+        IO.println(countTriples(12)); // 4
+    }
+}
+/**
+   public static int countTriples(int n) {
+        int cnt = 0;
+        for(int i = 1; i <= n; ++i) {
             for(int j = 1; j < i; j++) {
                 for(int k = 1; k < i; ++k) {
                     if(i*i == j*j + k*k) cnt++;
@@ -30,8 +47,4 @@ class CountSquareSumTriples {
         }
         return cnt;
     }
-    public static void main(String[]args) {
-        IO.println(countTriples(5));  // 2
-        IO.println(countTriples(10)); // 4
-    }
-}
+ */
