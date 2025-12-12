@@ -33,6 +33,7 @@ class SearchInBST {
                                                   new TreeNode(1),
                                                   new TreeNode(3)),
                                      new TreeNode(7));
-        searchBST(root, 2);
+        TreeNode.printTree(searchBST(root, 2));
+        TreeNode.printTree(searchBST(root, 5));
     }
 }
