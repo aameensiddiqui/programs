@@ -13,7 +13,7 @@ class TreeNode {
         this.right = right;
     }
     private static void preorder(TreeNode node, List<Integer> list) {
-        if(node == null) return;
+        if(node == null) {list.add(-99); return;}
         list.add(node.val);
         preorder(node.left, list);
         preorder(node.right, list);
