@@ -17,6 +17,7 @@
    s consist of only digits and English letters.
 */
 class LongestPalndromicSubstring {
+    // dp
     private static String longestPalindrome(String s) {
         int n = s.length(), resLen = 0, resIdx = 0;
         boolean[][] dp = new boolean[n][n];
@@ -43,6 +44,37 @@ class LongestPalndromicSubstring {
     }
 }
 /**
+    // two pointers
+    private static String longestPalindrome(String s) {
+        int resLen = 0, resIdx = 0, n = s.length();
+        for (int i = 0; i < n; ++i) {
+            // odd
+            int l = i, r = i;
+            while (l >= 0 && r < n && s.charAt(l) == s.charAt(r)) {
+                if (resLen < (r-l+1)) {
+                    resLen = r-l+1;
+                    resIdx = l;
+                }
+                --l;
+                ++r;
+            }
+
+            // even
+            l = i; r = i+1;
+            while (l >= 0 && r < n && s.charAt(l) == s.charAt(r)) {
+                if (resLen < (r-l+1)) {
+                    resLen = r-l+1;
+                    resIdx = l;
+                }
+                --l;
+                ++r;
+            }
+        }
+        return s.substring(resIdx, resIdx+resLen);
+    }
+*/
+/**
+    brute force
     private static String longestPalindrome(String s) {
         int resLen = 0, n = s.length();
         String ans = "";
@@ -62,6 +94,7 @@ class LongestPalndromicSubstring {
     }
 */
 /**
+    // mine
     private static boolean isPal(String s) {
         StringBuilder str = new StringBuilder();
         for (int i = s.length() - 1; i >= 0; --i) {
