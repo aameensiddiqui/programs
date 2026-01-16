@@ -40,7 +40,7 @@
 import java.util.*;
 
 class MaxSqAreaByRemovingFences {
-    private static int MOD = 1000000007;
+    private static final int MOD = 1000000007;
     private static Set<Integer> getEdges(int[] fences, int border) {
         Set<Integer> set = new HashSet<>();
         List<Integer> list = new ArrayList<>();
