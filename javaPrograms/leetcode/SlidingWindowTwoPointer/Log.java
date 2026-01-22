@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Log {
-    public void info(Object...args) {
+    public static void info(Object...args) {
         for(Object ob : args) {
             if(ob != null && ob.getClass().isArray()) {
                 if(ob instanceof Object[])       System.out.println(Arrays.deepToString((Object[]) ob));
