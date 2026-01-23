@@ -1,2 +1,4 @@
-# This repo contains some practice programs for
-`c` `java` `javascript` `mysql` `react`
+# This repo contains leetcode solutions in
+`java` `c++`
+# and some practice programs
+`c` `python` `lua` `javascript` `html` `mysql` `react`
