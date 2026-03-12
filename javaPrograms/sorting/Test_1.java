@@ -1,4 +1,4 @@
-public class test {
+public class Test {
     public static void main(String[]args) {
         //int [] arr = {8, 5, 10, 7, 9, 4, 15, 12, 90, 13};
         //int [] arr = {1, 2, 3, 1, 4, 5};
