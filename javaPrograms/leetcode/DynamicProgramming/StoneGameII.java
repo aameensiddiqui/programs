@@ -36,6 +36,48 @@
 import java.util.Arrays;
 
 class StoneGameII {
+    // dp top down + suffixSum
+    private static int[][] dp;
+    private static int[] suffixSum;
+    private static int dfs(int i, int M) {
+        if (i == suffixSum.length) return 0;
+        if (dp[i][M] != -1) return dp[i][M];
+        int res = 0;
+        int total = 0;
+        for (int X = 1; X <= 2 * M; ++X) {
+            if (i + X > suffixSum.length) break;
+            res = Math.max(res, suffixSum[i] - dfs(i + X, Math.max(M, X)));
+        }
+        return dp[i][M] = res;
+    }
+    private static int stoneGameII(int[] piles) {
+        int n = piles.length;
+        dp = new int[n][n + 1];
+        for (int[] row : dp) Arrays.fill(row, -1);
+        suffixSum = new int[n];
+        suffixSum[n - 1] = piles[n - 1];
+        for (int i = n - 2; i >= 0; --i) suffixSum[i] += suffixSum[i + 1] + piles[i];
+
+        int ans = dfs(0, 1);
+
+        log.info("dp-----------------------------");
+        log.info((Object[]) dp);
+        log.info("suffixsum-----------------------------");
+        log.info((int[]) suffixSum);
+        log.info("-----------------------------");
+        return ans;
+    }
+    public static void main(String[] args) {
+        log.info(stoneGameII(new int[] {2,7,9,4,4}));                                 // 10
+        log.info(stoneGameII(new int[] {1,2,3,4,5,100}));                             // 104
+        log.info(stoneGameII(new int[] {1}));                                         // 1
+        log.info(stoneGameII(new int[] {3111,4303,2722,2183,6351,5227,8964,7167,9286,
+                                        6626,2347,1465,5201,7240,5463,8523,8163,9391,
+                                        8616,5063,7837,7050,1246,9579,7744,6932,7704,
+                                        9841,6163,4829,7324,6006,4689,8781,621}));    // 112766
+    }
+}
+/**
     // dp top down
     private static int[][][] dp;
     private static int dfs(int alice, int i, int M, int[] piles) {
@@ -65,18 +107,13 @@ class StoneGameII {
         for (int[][] layer : dp) {
             for (int[] row : layer) Arrays.fill(row, -1);
         }
-        return dfs(1, 0, 1, piles);
+        int ans = dfs(1, 0, 1, piles);
+        log.info((Object[]) dp[0]);
+        log.info("-----------------------------");
+        log.info((Object[]) dp[1]);
+        return ans;
     }
-    public static void main(String[] args) {
-        log.info(stoneGameII(new int[] {2,7,9,4,4}));                                 // 10
-        log.info(stoneGameII(new int[] {1,2,3,4,5,100}));                             // 104
-        log.info(stoneGameII(new int[] {1}));                                         // 1
-        log.info(stoneGameII(new int[] {3111,4303,2722,2183,6351,5227,8964,7167,9286,
-                                        6626,2347,1465,5201,7240,5463,8523,8163,9391,
-                                        8616,5063,7837,7050,1246,9579,7744,6932,7704,
-                                        9841,6163,4829,7324,6006,4689,8781,621}));    // 112766
-    }
-}
+*/
 /**
     private static int dfs(int alice, int i, int M, int[] piles) {
         if (i == piles.length) return 0;
