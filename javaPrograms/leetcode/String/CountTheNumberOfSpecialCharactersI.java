@@ -47,6 +47,18 @@ class CountTheNumberOfSpecialCharactersI {
     }
 }
 /**
+    private static int numberOfSpecialChars(String word) {
+        boolean[] arr = new boolean['z' + 1];
+        int cnt = 0;
+        for (char ch : word.toCharArray())
+            arr[ch] = true;
+        for (int i = 0; i < 26; ++i)
+            if (arr[i + 'a'] && arr[i + 'A'])
+                cnt++;
+        return cnt;
+    }
+*/
+/**
     // my solution
     private static int numberOfSpecialChars(String word) {
         int[] arr = new int[26];
