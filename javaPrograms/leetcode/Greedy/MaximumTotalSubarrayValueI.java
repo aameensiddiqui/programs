@@ -44,5 +44,22 @@ class MaximumTotalSubarrayValueI {
     public static void main(String[] args) {
         Log.info(maxTotalValue(new int[] {1,3,2}, 2));
         Log.info(maxTotalValue(new int[] {4,2,5,1}, 3));
+
+        try {
+            File file = new File("MaximumTotalSubarrayValueI.TXT");
+            List<Integer> list = new ArrayList<>();
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                list.add(sc.nextInt());
+            }
+            int[] arr = new int[list.size()];
+            for (int i = 0; i < list.size(); ++i) {
+                arr[i] = list.get(i);
+            }
+            Log.info(maxTotalValue(arr, 54070)); // expected o/p -> 54069455136610
+            sc.close();
+        } catch(Exception e) {
+            Log.info(e);
+        }
     }
 }
